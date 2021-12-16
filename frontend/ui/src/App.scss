@@ -1,5 +1,9 @@
-.App {
-    h1 {
-        color: red;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
 }
+
+@import "./styles/scss/btn_mui_style";
+@import "./styles/scss/header";
