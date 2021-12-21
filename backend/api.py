@@ -1,20 +1,9 @@
-import numpy as np
 from PIL import Image
-from feature_extractor import FeatureExtractor
 from datetime import datetime
 from flask import Flask, request, render_template
-from pathlib import Path
+from image_search import img_search
 
 app = Flask(__name__)
-
-# Read image features
-fe = FeatureExtractor()
-features = []
-img_paths = []
-for feature_path in Path("./feature").glob("*.npy"):
-    features.append(np.load(feature_path))
-    img_paths.append(Path("./images") / (feature_path.stem + ".jpg"))
-features = np.array(features)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -29,11 +18,7 @@ def index():
         img.save(uploaded_img_path)
 
         # Run search
-        query = fe.extract(img)
-        dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:30]  # Top 30 results
-        scores = [(dists[id], img_paths[id]) for id in ids]
-        print(ids, scores)
+        scores = img_search(img)
 
         return render_template('index.html',
                                query_path=uploaded_img_path,
