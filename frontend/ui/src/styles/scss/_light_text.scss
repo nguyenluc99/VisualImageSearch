@@ -1,10 +1,10 @@
-$light_text_shadow: #3d8094;
+$light_text_shadow: #ffffff;
 .moon-lighttext {
-    color: #fff;
-    font-size: 6em;
+    color: #000000;
+    font-size: 5em;
     margin-top: 0.2em;
     z-index: 999;
-    text-shadow: 0px 0px 10px $light_text_shadow, 0px 0px 20px $light_text_shadow, 4px 4px 30px $light_text_shadow, 6px 6px 60px $light_text_shadow, 8px 8px 100px $light_text_shadow;
+    text-shadow: 0px 0px 10px $light_text_shadow;
 }
 .light1 {
     width: 10%;

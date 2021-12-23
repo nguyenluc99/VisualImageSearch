@@ -8,15 +8,24 @@ export default function Header() {
         const file = e.target.files[0];
         var reader = new FileReader();
         reader.onload = function (ee) {
-            console.log(ee);
             var img = new Image();
             img.onload = function () {
-                if (this.width > 500) {
-                    setWidthImg(500);
-                    setHeightImg((500 * this.height) / this.width);
+                if (this.width > this.height) {
+                    if (this.width > 500) {
+                        setWidthImg(500);
+                        setHeightImg((500 * this.height) / this.width);
+                    } else {
+                        setWidthImg(this.width);
+                        setHeightImg(this.height);
+                    }
                 } else {
-                    setWidthImg(this.width);
-                    setHeightImg(this.height);
+                    if (this.height > 500) {
+                        setHeightImg(500);
+                        setWidthImg((500 * this.width) / this.height);
+                    } else {
+                        setWidthImg(this.width);
+                        setHeightImg(this.height);
+                    }
                 }
             };
             img.src = ee.target.result;

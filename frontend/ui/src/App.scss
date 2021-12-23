@@ -5,10 +5,10 @@
     font-family: "Lato", sans-serif;
 }
 body {
-    background: #222222;
+    background-color: #f8f8f8;
 }
-
 @import "./styles/scss/btn_mui_style";
 @import "./styles/scss/header";
 @import "./styles/scss/light_text";
 @import "./styles/scss/magic_card";
+@import "./styles/scss/list_img";
