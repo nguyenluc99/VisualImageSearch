@@ -12,17 +12,39 @@ export default function ListImg(props) {
     console.log(props.data);
 
     return (
-        <Container>
-            <h1 className="title">Thuật toán</h1>
-            <Row>
-                {props.data.map((item, index) => {
-                    return (
-                        <Col key={item.src + index} xs={6} lg={3} md={4}>
-                            <img className="img_sp" src={item.src} alt="" />
-                        </Col>
-                    );
-                })}
-            </Row>
-        </Container>
+        <>
+            <div className="list_img">
+                <Container>
+                    <h1 className="title">
+                        Thuật toán <br /> xxx
+                    </h1>
+                    <Row>
+                        {props.data.map((item, index) => {
+                            return (
+                                <Col key={item.src + index} xs={6} lg={3} md={4}>
+                                    <img className="img_sp" src={item.src} alt="" />
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </Container>
+            </div>
+            <div className="list_img">
+                <Container>
+                    <h1 className="title">
+                        Thuật toán <br /> xxx
+                    </h1>
+                    <Row>
+                        {props.data.map((item, index) => {
+                            return (
+                                <Col key={item.src + index} xs={6} lg={3} md={4}>
+                                    <img className="img_sp" src={item.src} alt="" />
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </Container>
+            </div>
+        </>
     );
 }

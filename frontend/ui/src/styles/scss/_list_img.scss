@@ -1,3 +1,30 @@
+.list_img {
+    padding-top: 35px;
+    .title {
+        position: relative;
+        padding: 0 52px;
+        font-size: 36px;
+        line-height: 1.3;
+        margin-bottom: 35px;
+        min-height: 94px;
+        display: flex;
+        align-items: center;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 7px;
+            bottom: 10px;
+            width: 6px;
+            border-radius: 3px;
+            background: hsl(142, 68%, 45%);
+        }
+    }
+    &:nth-child(2n) {
+        background-color: hsl(0, 0%, 97%);
+    }
+}
+
 .img_sp {
     margin: 10px 15px;
     border-radius: 5px;
