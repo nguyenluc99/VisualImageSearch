@@ -1,11 +1,11 @@
 import sys
 from PIL import Image
-from image_search import img_search
+from image_search import autofaiss_img_search
 
 
 def main(filename):
     img = Image.open(filename)
-    scores = img_search(img)
+    scores = autofaiss_img_search(img)
     print(len(scores))
     print(scores)
 
