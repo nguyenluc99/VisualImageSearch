@@ -30,18 +30,15 @@
         <button class="btn" id="btns" name="uploadbutton">Search</button>
       </form>
     </div>
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <br /><br /><br />
-    <h1 id="re"></h1>
+    <!-- <h1 id="re"></h1> -->
     <div class="gallery">
+      {% for score in scores %}
+      <div class="card">
+        <img src="{{ score[0] }}" />
+        <p>{{ score[1] }}</p>
+      </div>
+      {% endfor %}
+
       <div class="gallery__column">
         <a href="#" target="_blank" class="gallery__link">
           <figure class="gallery__thumb">
@@ -138,18 +135,19 @@
             .done(function (data, textStatus, jqXHR) {
               console.log("hi");
               console.log(data);
+              const scores = data.scores;
               $("#re").text("Similar Images");
 
-              $("#a1").attr("src", "images/" + data[0]);
-              $("#a2").attr("src", "images/" + data[1]);
-              $("#a3").attr("src", "images/" + data[2]);
-              $("#a4").attr("src", "images/" + data[3]);
-              $("#a5").attr("src", "images/" + data[4]);
-              $("#a6").attr("src", "images/" + data[5]);
-              $("#a7").attr("src", "images/" + data[6]);
-              $("#a8").attr("src", "images/" + data[7]);
-              $("#a9").attr("src", "images/" + data[8]);
-              $("#a10").attr("src", "images/" + data[9]);
+              $("#a1").attr("src", scores[0][1]);
+              $("#a2").attr("src", scores[1][1]);
+              $("#a3").attr("src", scores[2][1]);
+              $("#a4").attr("src", scores[3][1]);
+              $("#a5").attr("src", scores[4][1]);
+              $("#a6").attr("src", scores[5][1]);
+              $("#a7").attr("src", scores[6][1]);
+              $("#a8").attr("src", scores[7][1]);
+              $("#a9").attr("src", scores[8][1]);
+              $("#a10").attr("src", scores[9][1]);
             })
             .fail(function (data) {
               alert("error!");
