@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
+}
+body {
+    margin: 0;
+    color: hsl(120, 1%, 21%);
+}
+@import "./styles/scss/btn_mui_style";
+@import "./styles/scss/header";
+@import "./styles/scss/light_text";
+@import "./styles/scss/magic_card";
+@import "./styles/scss/list_img";
