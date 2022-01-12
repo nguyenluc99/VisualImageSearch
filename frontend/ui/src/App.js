@@ -12,6 +12,7 @@ function getImage(src) {
 
 function App() {
     const [data, setData] = useState([]);
+    const [autofaissList, setAutofaissList] = useState([]);
     useEffect(() => {
         (async () => {
             fetch(`${BACKEND_URL}/cate/list`)
@@ -38,11 +39,11 @@ function App() {
 
         return () => {};
     }, []);
-
+    console.log(autofaissList)
     return (
         <div className="App">
-            <Header />
-            <ListImg data={data} />
+            <Header setAutofaissList={setAutofaissList}/>
+            <ListImg data={autofaissList} />
         </div>
     );
 }

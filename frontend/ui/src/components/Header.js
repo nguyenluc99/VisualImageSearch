@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 
-export default function Header() {
+export default function Header(props) {
+    const setAutofaissList = props.setAutofaissList;
     const [imgUpload, setImgUpload] = useState("");
+    const [file, setFile] = useState(null);
     const [widthImg, setWidthImg] = useState(500);
     const [heightImg, setHeightImg] = useState(300);
+    const formData = new FormData();
+  
     function uploadImg(e) {
         const file = e.target.files[0];
         var reader = new FileReader();
@@ -32,14 +36,34 @@ export default function Header() {
             img.src = ee.target.result;
             setImgUpload(ee.target.result);
         };
+        // if (formData.has("file")) {
+        //     formData.delete("file");
+        // }
+        console.log("load file", file)
+        formData.append("file", e.target.files[0]);
+        setFile(e.target.files[0]);
+
         reader.readAsDataURL(file);
+    }
+    
+    const search = () => {
+      console.log(formData)
+        formData.append("model_name", "autofaiss");
+        formData.append("file", file);
+        fetch("http://localhost:5000/search", {
+            method: "POST",
+            body: formData
+        }).then(function (res) {
+          return res.json()
+        }).then(data => {
+          console.log("data", data)
+          setAutofaissList(data.products)
+        });
     }
 
     return (
         <div className="header">
             <Container>
-                <h1 className="title">Computer Vision Application</h1>
-
                 <div className="card" style={{ width: widthImg, height: heightImg }}>
                     <span className="btn_upload">
                         <i className="fas fa-image"></i>
@@ -49,7 +73,7 @@ export default function Header() {
 
                     <input id="upload_file" type="file" onChange={uploadImg} title="upload new img" />
                 </div>
-                <div className="btn_submit">
+                <div className="btn_submit" onClick={() => search()}>
                     <span></span>
                     <span></span>
                     <span></span>
