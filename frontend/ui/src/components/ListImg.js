@@ -9,22 +9,25 @@ export default function ListImg(props) {
         }
         return a;
     }
-    console.log(props.data);
+    if (!props.data?.products) return <div />;
 
     return (
         <>
             <div className="list_img">
                 <Container>
                     <h1 className="title">
-                        Thuật toán <br /> xxx
+                        {props.name}
                     </h1>
+      <span>{props.data.elapsed_time}ms</span>
                     <Row>
-                        {props.data.map((item, index) => {
+                        {props.data.products.map((item, index) => {
                             console.log(item, )
                             return (
-                                <Col key={index} xs={6} lg={3} md={4}>
-                                    <img className="img_sp" src={`http://localhost:5000/images/${item.image}`} alt="" />
-                                    <span>{item.name}</span>
+                                <Col key={index} xs={6} lg={2} md={4}>
+                                  <div style={{display: 'flex', flexDirection: 'column'}} >
+                                    <img className="img_sp" src={`http://localhost:5000/images/${item.image}`} alt="" style={{height: 150, width: 'auto'}} />
+                                    <a href={`https://tiki.vn/${item.urlkey}.html`}>{item.name}</a>
+                                  </div>
                                 </Col>
                             );
                         })}

@@ -11,8 +11,9 @@ function getImage(src) {
 }
 
 function App() {
-    const [data, setData] = useState([]);
-    const [autofaissList, setAutofaissList] = useState([]);
+    const [data, setData] = useState();
+    const [autofaissList, setAutofaissList] = useState();
+    const [pyretriList, setPyretriList] = useState([]);
     useEffect(() => {
         (async () => {
             fetch(`${BACKEND_URL}/cate/list`)
@@ -39,11 +40,11 @@ function App() {
 
         return () => {};
     }, []);
-    console.log(autofaissList)
     return (
         <div className="App">
-            <Header setAutofaissList={setAutofaissList}/>
-            <ListImg data={autofaissList} />
+            <Header setAutofaissList={setAutofaissList} setPyretriList={setPyretriList}/>
+            <ListImg data={autofaissList} name={"autofaiss"}/>
+            <ListImg data={pyretriList}  name={"pyreti"}/>
         </div>
     );
 }

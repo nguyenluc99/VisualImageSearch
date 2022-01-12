@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 
 export default function Header(props) {
     const setAutofaissList = props.setAutofaissList;
+    const setPyretriList = props.setPyretriList;
     const [imgUpload, setImgUpload] = useState("");
     const [file, setFile] = useState(null);
     const [widthImg, setWidthImg] = useState(500);
@@ -47,9 +48,11 @@ export default function Header(props) {
     }
     
     const search = () => {
-      console.log(formData)
         formData.append("model_name", "autofaiss");
         formData.append("file", file);
+        setPyretriList(null)
+        setAutofaissList(null)
+
         fetch("http://localhost:5000/search", {
             method: "POST",
             body: formData
@@ -57,7 +60,20 @@ export default function Header(props) {
           return res.json()
         }).then(data => {
           console.log("data", data)
-          setAutofaissList(data.products)
+          setAutofaissList(data)
+        });
+
+        formData.delete("model_name")
+        formData.append("model_name", "pyretri");
+        // formData.append("file", file);
+        fetch("http://localhost:5000/search", {
+            method: "POST",
+            body: formData
+        }).then(function (res) {
+          return res.json()
+        }).then(data => {
+          console.log("data", data)
+          setPyretriList(data)
         });
     }
 
@@ -69,7 +85,7 @@ export default function Header(props) {
                         <i className="fas fa-image"></i>
                     </span>
 
-                    <img src={imgUpload} style={{ display: imgUpload ? "" : "none", width: "100%", height: "100%", position: "absolute", transition: "0.3s" }} />
+                    <img src={imgUpload} style={{ display: imgUpload ? "" : "none", width: "auto", height: "200", position: "absolute", transition: "0.3s" }} />
 
                     <input id="upload_file" type="file" onChange={uploadImg} title="upload new img" />
                 </div>

@@ -48,8 +48,11 @@ def search():
     img.save(uploaded_img_path)
 
     products = []
-    if model_name == 'pyretri':
 
+
+    # start time
+    start_time = datetime.now()
+    if model_name == 'pyretri':
         # Run search
         ret = pyretrive_img_search(uploaded_img_path)
         products = image_paths_to_product_list(ret)
@@ -57,14 +60,14 @@ def search():
         ret = autofaiss_img_search(uploaded_img_path)
         products = image_paths_to_product_list(ret)
     product_ids = [int(product['product_id']) for product in products]
-    print(product_ids)
+    elapsed_time = datetime.now() - start_time
     ret = db.products.find({"id": {"$in": product_ids}}, {"_id": 0, "id": 1, "name": 1, "price": 1, "urlkey": 1})
     ret = list(ret)
     for idx, product in enumerate(ret):
         product['image'] = products[idx]['image']
     return jsonify({
-        "products2": products,
         "products": ret,
+        "elapsed_time": elapsed_time.microseconds / 1000
     })
 
 @app.route('/images/<path:path>')
