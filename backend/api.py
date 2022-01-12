@@ -1,10 +1,15 @@
-from PIL import Image
 from datetime import datetime
-from flask import Flask, request, render_template, send_from_directory, jsonify
-from image_search import autofaiss_img_search, pyretrive_img_search, image_paths_to_product_list
+
+from flask import Flask, jsonify, render_template, request, send_from_directory
+from PIL import Image
+from flask_cors import CORS
+
+from image_search import (autofaiss_img_search, image_paths_to_product_list,
+                          pyretrive_img_search)
+from mongo import get_database
 
 app = Flask(__name__)
-
+CORS(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -29,6 +34,7 @@ def index():
     else:
         return render_template('index.html')
 
+db = get_database()
 
 @app.route('/search', methods=["POST"])
 def search():
@@ -50,9 +56,15 @@ def search():
     elif model_name == 'autofaiss':
         ret = autofaiss_img_search(uploaded_img_path)
         products = image_paths_to_product_list(ret)
-
+    product_ids = [int(product['product_id']) for product in products]
+    print(product_ids)
+    ret = db.products.find({"id": {"$in": product_ids}}, {"_id": 0, "id": 1, "name": 1, "price": 1, "urlkey": 1})
+    ret = list(ret)
+    for idx, product in enumerate(ret):
+        product['image'] = products[idx]['image']
     return jsonify({
-        "products": products
+        "products2": products,
+        "products": ret,
     })
 
 @app.route('/images/<path:path>')
